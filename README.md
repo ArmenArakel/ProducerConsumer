@@ -20,4 +20,4 @@
 
 
 #### windows
-```mvn test``
+```mvn test```
