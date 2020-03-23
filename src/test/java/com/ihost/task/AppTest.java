@@ -65,7 +65,7 @@ public class AppTest {
 
         assertTrue(!offeredList.isEmpty());
         assertTrue(!polledList.isEmpty());
-g
+
         // offeredList and polledList should be the same
         assertEquals(polledList, offeredList);
     }
