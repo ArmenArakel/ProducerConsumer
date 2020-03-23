@@ -7,11 +7,13 @@ import org.mockito.stubbing.Answer;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
@@ -27,6 +29,9 @@ public class AppTest {
 
         Field blockingQueueField = Driver.class.getDeclaredField("blockingQueue");
         blockingQueueField.setAccessible(true);
+        Field modifiersField = Field.class.getDeclaredField("modifiers");
+        modifiersField.setAccessible(true);
+        modifiersField.setInt(blockingQueueField, blockingQueueField.getModifiers() & ~Modifier.FINAL);
         BlockingQueue<Integer> blockingQueue = (BlockingQueue<Integer>) blockingQueueField.get(null);
         BlockingQueue<Integer> spyQueue = spy(blockingQueue);
         blockingQueueField.set(null, spyQueue);
@@ -58,6 +63,9 @@ public class AppTest {
             e.printStackTrace();
         }
 
+        assertTrue(!offeredList.isEmpty());
+        assertTrue(!polledList.isEmpty());
+g
         // offeredList and polledList should be the same
         assertEquals(polledList, offeredList);
     }

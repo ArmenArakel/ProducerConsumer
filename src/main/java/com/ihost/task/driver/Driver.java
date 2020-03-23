@@ -20,7 +20,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class Driver {
 
     private static final int QUEUE_SIZE = 100;
-    private static volatile BlockingQueue<Integer> blockingQueue = new LinkedBlockingQueue<>(QUEUE_SIZE);
+    private static final BlockingQueue<Integer> blockingQueue = new LinkedBlockingQueue<>(QUEUE_SIZE);
     private final int producersCount;
     private final int consumersCount;
     private final List<Thread> producerList;
